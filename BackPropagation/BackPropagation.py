@@ -167,7 +167,7 @@ def train(neural_net, X, Y, l2_cost, lr=0.5, train=True):
 # In[99]:
 
 # Probar la red
-for i in range(1000):
+for i in range(200):
     costo = train(neural_net, X, Y, l2_cost, 0.5)
     print(costo)
 
