@@ -14,7 +14,7 @@ from tkinter import filedialog as FileDialog
 # In[7]:
 
 # Configuracion del algoritmo
-K = 1
+K = 3
 tolerancia = 0.00001
 iteraciones = 1200
 j = 0
