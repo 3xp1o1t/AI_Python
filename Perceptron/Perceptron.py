@@ -31,9 +31,9 @@ conjunto = np.array([[0, 0, 0], [0, 1, 0], [1, 0, 0],  [1, 1, 1]])
 # Configuracion del algoritmo
 r, c = conjunto.shape
 # S entradas, R salidas.
-p = conjunto[:, :c-1].transpose()
+p = conjunto[:, :-1].transpose()
 s, k = p.shape
-t = conjunto[:, -1].reshape(r, 1)
+t = conjunto[:,-1].reshape(r, 1)
 o, r = t.shape
 bias = np.random.rand(r, 1)
 pesos_w = np.random.rand(r, s)
@@ -75,8 +75,8 @@ while(contador < iteraciones):
         # @ Se utiliza para multiplicacion de matrices
         n = pesos_w @ p[:, i] + bias
         
-        #a = hardlim(n)
-        a = simetricHardLim(n)      # Funciona gud
+        a = hardlim(n)
+        #a = simetricHardLim(n)      # Funciona gud
         #a = logarithmicSigmoid(n)    # funciona bad
         #a = competitive(n)          # funciona de la verga
         #a = softMax(n)              # ni si quiera funciona
@@ -89,7 +89,7 @@ while(contador < iteraciones):
             bias = bias + error[:, i]
             
     
-    error_total = sum(sum(abs(error)))
+    error_total = np.sum(np.abs(error))
     
     print('Iteracion ', contador+1, ' de ', iteraciones, ' Error total: ', error_total)
 
@@ -112,8 +112,8 @@ def plot_data(inputs,targets,weights):
         plt.plot(input[0],input[1],'ro' if (target == 1.0) else 'bo')
 
     # Calcular la intercepcion
-    for i in np.linspace(np.amin(inputs[:,:1]),np.amax(inputs[:,:1])):
-        pendiente = -(weights[0, 0] / weights[0, 1]) + bias
+    for i in np.linspace(.4, 1.2, num=50):
+        pendiente = -(weights[0, 0] / weights[0, 1])
         #pendiente = -(weights[0, 0] / weights[0, 1]) * inputs[0, :] - (bias / weights[0, 1])
         intercepcion = -weights[0, 0] / weights[0, 1]
         #slope = -(weights[0]/weights[2])/(weights[0]/weights[1])  
@@ -121,7 +121,8 @@ def plot_data(inputs,targets,weights):
 
         #y =mx+c, m is slope and c is intercept
         y = (pendiente*i) - intercepcion
-        plt.plot(i, y,'gx')
+        print(y)
+        plt.plot(i, y,'g*')
     plt.show()
 
 # In[8]
